@@ -83,19 +83,19 @@ app.patch('/api/todos/:id', async (req, res) => {
     let paramCount = 1;
     
     if (completed !== undefined) {
-      query += `completed = \$${paramCount}`;
+      query += `completed = $${paramCount}`;
       values.push(completed);
       paramCount++;
     }
     
     if (title !== undefined && title.trim()) {
       if (paramCount > 1) query += ', ';
-      query += `title = \$${paramCount}`;
+      query += `title = $${paramCount}`;
       values.push(title.trim());
       paramCount++;
     }
     
-    query += ` WHERE id = \$${paramCount} RETURNING *`;
+    query += ` WHERE id = $${paramCount} RETURNING *`;
     values.push(id);
     
     const result = await pool.query(query, values);
@@ -113,7 +113,7 @@ app.patch('/api/todos/:id', async (req, res) => {
 app.delete('/api/todos/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await pool.query('DELETE FROM todos WHERE id = \$1', [id]);
+    const result = await pool.query('DELETE FROM todos WHERE id = $1', [id]);
     if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Todo not found' });
     }
