@@ -43,3 +43,4 @@ npm start
 ## Deployment
 
 Deployed on Railway with automatic PostgreSQL integration.
+// Build trigger - Fri Apr  3 11:08:31 UTC 2026
